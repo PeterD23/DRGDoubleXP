@@ -18,9 +18,13 @@ With Go and VS Code installed, clone the repo and open the folder in VS Code. Th
 - Missions List Order set by `sortKeys()` (Default is `ORDER_BY_DATE`, can be changed to `ORDER_BY_XP`)
 
 # How does it work?
-The Deep Rock Galactic Live Mission Tracker at doublexp.net has an API for mission forecasting. 
+The Deep Rock Galactic Live Mission Tracker at doublexp.net has an API for mission forecasting.
+
 The program simply makes an API call for the forecasted day, unmarshals it into structs, then parses the data using data maps defined in `values.go`
+
 I was considering putting in Event chance rolls but the data from the drg wiki.gg is missing data for the Data Cell event and its also too much work to calculate potential
 experience gains that aren't guaranteed. I instead opted for a "Theoretical Experience" breakdown that assumes a random roll of 2 from the 1000 XP resource pool, and 1 from the 1500 XP resource pool.
+
 This theoretical value is extremely unlikely though, and the total XP you'll get will fall somewhere between the Mission Experience and the Mission Experience + Predicted + 1 Event Roll.
+
 Note that any Mission with Lithophage Outbreak will not roll the Meteor Impact/Corruptor Event, and any Mission with Industrial Sabotage will NOT roll a Prospector Drone/Data Deposit/Rival Communications Event.
