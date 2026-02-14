@@ -26,6 +26,7 @@ const (
 	refine   = "On-Site Refining"
 	sabotage = "Industrial Sabotage"
 	scan     = "Deep Scan"
+	extract  = "Heavy Excavation"
 )
 
 var (
@@ -63,6 +64,9 @@ var (
 
 		{"1", "2", scan, 1}: 2900, {"1", "2", scan, 2}: 2885,
 		{"2", "3", scan, 1}: 4843, {"2", "3", scan, 2}: 4817,
+
+		{"2", "2", extract, 1}: 2735, {"2", "2", extract, 2}: 2775,
+		{"3", "2", extract, 1}: 3635, {"3", "2", extract, 2}: 3700,
 	}
 	caveHazardBonus = CaveHazardBonus{
 		{"1", "1"}: 0,
@@ -74,20 +78,22 @@ var (
 		{"3", "3"}: 40,
 	}
 	warningBonus = WarningBonus{
-		"Cave Leech Cluster":   15,
-		"Parasites":            15,
-		"Regenerative Bugs":    15,
-		"Exploder Infestation": 20,
-		"Low Oxygen":           20,
-		"Mactera Plague":       20,
-		"Swarmageddon":         20,
-		"Ebonite Outbreak":     20,
-		"Lethal Enemies":       25,
-		"Elite Threat":         30,
-		"Haunted Cave":         30,
-		"Rival Presence":       30,
-		"Shield Disruption":    30,
-		"Duck and Cover":       30,
-		"Lithophage Outbreak":  50,
+		"Cave Leech Cluster":    15,
+		"Parasites":             15,
+		"Regenerative Bugs":     15,
+		"Exploder Infestation":  20,
+		"Low Oxygen":            20,
+		"Mactera Plague":        20,
+		"Swarmageddon":          20,
+		"Ebonite Outbreak":      20,
+		"Lethal Enemies":        25,
+		"Elite Threat":          30,
+		"Haunted Cave":          30,
+		"Rival Presence":        30,
+		"Shield Disruption":     30,
+		"Duck and Cover":        30,
+		"Lithophage Outbreak":   50,
+		"Pit Jaw Colony":        20,
+		"Scrab Nesting Grounds": 20,
 	}
 )

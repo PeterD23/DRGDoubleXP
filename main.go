@@ -19,10 +19,11 @@ var (
 	}
 	baseHazardBonus     = HAZARD_3
 	doubleMissions      = UniqueMission{}
-	experienceThreshold = 10000
+	experienceThreshold = 5000
+	offsetTime          = time.Now().Add(-time.Minute * 30)
 	currentTime         = time.Now()
 	// How much resource XP obtained from a mission, 2 xp per non-Objective
-	predicted = 4000
+	predicted = 1000
 )
 
 const (
@@ -31,12 +32,12 @@ const (
 )
 
 func main() {
-	searchDays := 1
+	searchDays := 2
 	for i := 0; i < searchDays; i++ {
 		missions := getMissionsFor(currentTime.AddDate(0, 0, i))
 		for _, data := range missions {
 			for _, biome := range data.Biomes {
-				if currentTime.Before(data.TimeStamp) {
+				if offsetTime.Before(data.TimeStamp) {
 					searchMissionData(data.TimeStamp, biome)
 				}
 			}
@@ -59,11 +60,11 @@ func getMissionsFor(requestedDate time.Time) DataBlock {
 
 func printMissionData() {
 	// Create a new map that is a sorted version of doubleMissions
-	keys := sortKeys(doubleMissions, ORDER_BY_DATE)
+	keys := sortKeys(doubleMissions, ORDER_BY_XP)
 
 	for _, key := range keys {
 		mission := doubleMissions[key]
-		fmt.Printf("%s (in %s)\n", mission.Timestamp.Format(time.DateTime), mission.Timestamp.Sub(currentTime).Truncate(time.Second))
+		fmt.Printf("%s (starts in %s)\n", mission.Timestamp.Format(time.DateTime), mission.Timestamp.Sub(currentTime).Truncate(time.Second))
 		fmt.Println(mission.Mission.toString())
 		fmt.Println("-------")
 	}
@@ -164,8 +165,8 @@ func (mission DRGMission) getTheoreticalExperience() string {
 	experience := mission.getExperience() + predicted
 	hazard := mission.getHazardBonus()
 
-	bonusOne := fmt.Sprintf("Any 2 of: Machine Event, Core Stone, Meteor Impact: %d", int(percent.Percent(hazard+100, 2000)))
-	bonusTwo := fmt.Sprintf("Any 1 of: Tyrant Shard, Data Cell: %d", int(percent.Percent(hazard+100, 1500)))
+	bonusOne := fmt.Sprintf("Any 2 of: Machine Event, Core Stone, Meteor Impact, Data Cell: %d", int(percent.Percent(hazard+100, 2000)))
+	bonusTwo := fmt.Sprintf("Tyrant Shard: %d", int(percent.Percent(hazard+100, 1500)))
 
 	xp := experience + int(percent.Percent(hazard+100, 3500))
 	theoreticalTotal := fmt.Sprintf("Total Theoretical Experience: %d (%d)", xp*2, xp)
